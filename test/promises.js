@@ -32,6 +32,16 @@ function createPost(post) {
 //     .then(getPosts)
 //     .catch(err => console.log(err));
 
+// const Promise1 = Promise.resolve('Hello World');
+// const Promise2 = 10;
+// const Promise3 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 2000, 'Goodbye');
+// });
+// const Promise4 = fetch('https://jsonplaceholder.typicode.com/users')
+//     .then(res => res.json());
+
+// Promise.all([Promise1, Promise2, Promise3, Promise4]).then(values => console.log(values));
+
 // Async / Await
 // async function init() {
 //     await createPost({ title: 'Post Five', body: 'This is post five' });
@@ -50,13 +60,3 @@ async function fetchUsers() {
 }
 
 fetchUsers();
-
-// const Promise1 = Promise.resolve('Hello World');
-// const Promise2 = 10;
-// const Promise3 = new Promise((resolve, reject) => {
-//     setTimeout(resolve, 2000, 'Goodbye');
-// });
-// const Promise4 = fetch('https://jsonplaceholder.typicode.com/users')
-//     .then(res => res.json());
-
-// Promise.all([Promise1, Promise2, Promise3, Promise4]).then(values => console.log(values));
