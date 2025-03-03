@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphql Site</title>
+    <title>GraphQL Site</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
@@ -15,14 +15,23 @@
         </div>
         <div class="form-section">
             <h1>Login with 01F credentials</h1>
-            <form action="">
-                <input type="text" placeholder="Email or Username" required>
-                <input type="password" placeholder="Enter Password here" required>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Email or Username" required>
+                <input type="password" id="password" placeholder="Enter Password here" required>
                 <button type="submit">Login</button>
             </form>
         </div>
     </div>
-    <script src="/assets/js/app.js"></script>
+
+    <script src="/assets/js/auth.js"></script>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form from reloading the page
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            login(username, password);
+        });
+    </script>
 </body>
 
 </html>
