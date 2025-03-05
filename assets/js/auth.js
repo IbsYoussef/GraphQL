@@ -31,7 +31,7 @@ function checkAuth() {
     const token = localStorage.getItem('jwt');
     if (!token) {
         console.log("User not authenticated. Redirecting to login...");
-        window.location.assign("index.html"); // Redirect to login page if not authenticated
+        window.location.assign("../pages/index.html"); // Redirect to login page if not authenticated
     }
 }
 
@@ -39,7 +39,7 @@ function checkAuth() {
 function logout() {
     console.log("Logging out...");
     localStorage.removeItem('jwt'); // Remove JWT
-    window.location.assign("index.html"); // Redirect to login page
+    window.location.assign("../pages/index.html"); // Redirect to login page
 }
 
 window.logout = logout;
