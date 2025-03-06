@@ -14,6 +14,7 @@ async function fetchUserData() {
             user {
                 id
                 login 
+                attrs
             }
         }
     `;
@@ -45,7 +46,14 @@ async function fetchUserData() {
 document.addEventListener("DOMContentLoaded", async () => {
     const user = await fetchUserData();
     if (user) {
-        document.getElementById("user-info").innerText = `Welcome, ${user.login}!`;
+        let userInfo = document.getElementById("user-info");
+
+        const phone = user.attrs?.tel || "No phone available";
+        const email = user.attrs?.email || "No email available";
+
+        userInfo.innerText = `Welcome, ${user.login}!
+        📞 ${phone} | 📧 ${email}`;
+
     } else {
         document.getElementById("user-info").innerText = "Failed to load user data.";
     }
