@@ -33,7 +33,7 @@ async function fetchUserData() {
         }
 
         const data = await response.json();
-        return data.data.user[0];  
+        return data.data.user[0];
 
     } catch (error) {
         console.error("Error fetching user data:", error);
