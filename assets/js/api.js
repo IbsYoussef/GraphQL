@@ -155,7 +155,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("user-info").innerText = "Failed to load user data.";
     }
     await fetchTransactions();
-    await calculateAuditRatio();
+    const auditData = await calculateAuditRatio();
+
+    if (auditData) {
+        const auditInfo = document.getElementById("audit-info");
+        auditInfo.innerHTML = `
+        <h3>Audits Ratio ${auditData.auditRatio.toFixed(1)}</h3>
+        <p><b>Done:</b> <i>${auditData.doneFormatted}</i> <b>Received:</b> <i>${auditData.receivedFormatted}</i></p>
+        `;
+    }
 });
 
 // Make function available globally
