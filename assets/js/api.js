@@ -1,3 +1,5 @@
+import { titleCase } from "./utils.js";
+
 const GRAPHQL_ENDPOINT = "https://learn.01founders.co/api/graphql-engine/v1/graphql";
 
 // Fetch User Data from endpoint
@@ -143,12 +145,15 @@ function formatSize(amount) {
 document.addEventListener("DOMContentLoaded", async () => {
     const user = await fetchUserData();
     if (user) {
+        const welcomeMsg = document.getElementById("welcome-msg");
+        welcomeMsg.innerText = `Welcome, ${titleCase(user.login)}!`;
+
         let userInfo = document.getElementById("user-info");
 
         const phone = user.attrs?.tel || "No phone available";
         const email = user.attrs?.email || "No email available";
 
-        userInfo.innerText = `Welcome, ${user.login}!
+        userInfo.innerText = `Contact Details:
         📞 ${phone} | 📧 ${email}`;
 
     } else {
