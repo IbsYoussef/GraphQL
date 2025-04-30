@@ -153,8 +153,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const phone = user.attrs?.tel || "No phone available";
         const email = user.attrs?.email || "No email available";
 
-        userInfo.innerText = `Contact Details:
-        📞 ${phone} | 📧 ${email}`;
+        userInfo.innerHTML = `
+        <p>Contact Details:</p>
+        <span>📞 ${phone} | 📧 ${email}</span>
+        `;
 
     } else {
         document.getElementById("user-info").innerText = "Failed to load user data.";
@@ -166,8 +168,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const auditInfo = document.getElementById("audit-info");
         auditInfo.innerHTML = `
         <h3>Audits Ratio ${auditData.auditRatio.toFixed(1)}</h3>
-        <p><b>Done:</b> <i>${auditData.doneFormatted}</i> <b>Received:</b> <i>${auditData.receivedFormatted}</i></p>
-        `;
+        <div class="audit-stats">
+            <p><b>Done:</b> <i>${auditData.doneFormatted}</i> ⬆️</p>
+            <p><b>Received:</b> <i>${auditData.receivedFormatted} 📥</i></p>
+        </div>
+    `;
     }
 });
 
