@@ -1,4 +1,4 @@
-import { titleCase } from "./utils.js";
+import { getTopSkills, titleCase, renderSkillChart } from "./utils.js";
 
 const GRAPHQL_ENDPOINT = "https://learn.01founders.co/api/graphql-engine/v1/graphql";
 
@@ -109,7 +109,7 @@ async function calculateAuditRatio() {
         .reduce((sum, tx) => sum + tx.amount, 0);
 
     // ✅ Log raw XP values before formatting
-    console.log(`🧐 Restored XP Values: Done = ${doneXP}, Received = ${receivedXP}`);
+    // console.log(`🧐 Restored XP Values: Done = ${doneXP}, Received = ${receivedXP}`);
 
     // ✅ Convert XP amounts to formatted MB or KB
     const doneFormatted = formatSize(doneXP);
@@ -119,16 +119,14 @@ async function calculateAuditRatio() {
     const auditRatio = receivedXP > 0 ? (doneXP / receivedXP) : 0;
 
     // ✅ Log in the correct format
-    console.log(`🔍 Audits ratio`);
-    console.log(`Done: ${doneFormatted} ↑`);
-    console.log(`Received: ${receivedFormatted} ↓`);
-    console.log(`${auditRatio.toFixed(1)}`);
-    console.log(`Best ratio ever!`);
+    // console.log(`🔍 Audits ratio`);
+    // console.log(`Done: ${doneFormatted} ↑`);
+    // console.log(`Received: ${receivedFormatted} ↓`);
+    // console.log(`${auditRatio.toFixed(1)}`);
+    // console.log(`Best ratio ever!`);
 
     return { auditRatio, doneFormatted, receivedFormatted };
 }
-
-
 
 // Convert XP amount to MB/KB and return formatted string
 function formatSize(amount) {
@@ -140,7 +138,6 @@ function formatSize(amount) {
     return `${kb.toFixed(0)} kB`; // ✅ Convert to KB if < 1MB
 }
 
-
 // Load user info when profile.html is loaded
 document.addEventListener("DOMContentLoaded", async () => {
     const user = await fetchUserData();
@@ -148,32 +145,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         const welcomeMsg = document.getElementById("welcome-msg");
         welcomeMsg.innerText = `Welcome, ${titleCase(user.login)}!`;
 
-        let userInfo = document.getElementById("user-info");
-
+        const userInfo = document.getElementById("user-info");
         const phone = user.attrs?.tel || "No phone available";
         const email = user.attrs?.email || "No email available";
-
         userInfo.innerHTML = `
-        <p>Contact Details:</p>
-        <span>📞 ${phone} | 📧 ${email}</span>
+            <p>Contact Details:</p>
+            <span>📞 ${phone} | 📧 ${email}</span>
         `;
-
     } else {
         document.getElementById("user-info").innerText = "Failed to load user data.";
     }
-    await fetchTransactions();
+
+    const transactions = await fetchTransactions();
     const auditData = await calculateAuditRatio();
 
     if (auditData) {
         const auditInfo = document.getElementById("audit-info");
         auditInfo.innerHTML = `
-        <h3>Audits Ratio ${auditData.auditRatio.toFixed(1)}</h3>
-        <div class="audit-stats">
-            <p><b>Done:</b> <i>${auditData.doneFormatted}</i> ⬆️</p>
-            <p><b>Received:</b> <i>${auditData.receivedFormatted} 📥</i></p>
-        </div>
-    `;
+            <h3>Audits Ratio ${auditData.auditRatio.toFixed(1)} 📈</h3>
+            <p><b>Done:</b> <i>${auditData.doneFormatted}</i> ⬆️ <b>Received:</b> <i>${auditData.receivedFormatted}</i> 📥</p>
+        `;
     }
+
+    // 📈 Render Skill Chart
+    const topSkills = getTopSkills(transactions);
+    renderSkillChart(topSkills, "skills-chart");
+
 });
 
 // Make function available globally

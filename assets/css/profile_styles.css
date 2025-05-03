@@ -130,3 +130,40 @@ h2 {
     animation-delay: 0.7s;
     opacity: 0;
 }
+
+#skills-section {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2b2b2b;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#skills-chart {
+    display: block;
+    margin: 20px auto;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    overflow: visible;
+}
+
+#skills-chart text {
+    fill: #fff;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+#skills-chart rect {
+    fill: #8a2be2;
+    transition: height 0.3s ease, y 0.3s ease;
+}
