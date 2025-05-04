@@ -120,6 +120,7 @@ export function debugSkillData(transactions) {
 
 // Render XP progression line chart
 export function renderXPChart(transactions, svgId) {
+    const tooltip = document.getElementById("tooltip");
     const svg = document.getElementById(svgId);
     svg.innerHTML = "";
 
@@ -184,8 +185,24 @@ export function renderXPChart(transactions, svgId) {
         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         circle.setAttribute("cx", p.x);
         circle.setAttribute("cy", p.y);
-        circle.setAttribute("r", 3);
-        circle.setAttribute("fill", "#a855f7");
+        circle.setAttribute("r", 4);
+        circle.setAttribute("fill", "#fff");
+        circle.style.cursor = "pointer";
+
+        circle.addEventListener("mouseenter", () => {
+            tooltip.innerHTML = `<strong>${p.label}</strong><br>XP: ${(p.value / 1024).toFixed(1)} kB`;
+            tooltip.style.opacity = 1;
+        });
+
+        circle.addEventListener("mousemove", (e) => {
+            tooltip.style.left = e.pageX + 10 + "px";
+            tooltip.style.top = e.pageY - 40 + "px";
+        });
+
+        circle.addEventListener("mouseleave", () => {
+            tooltip.style.opacity = 0;
+        });
+
         svg.appendChild(circle);
 
         if (i % Math.ceil(points.length / 10) === 0) {
