@@ -117,3 +117,99 @@ export function debugSkillData(transactions) {
         return summary;
     }
 }
+
+// Render XP progression line chart
+export function renderXPChart(transactions, svgId) {
+    const svg = document.getElementById(svgId);
+    svg.innerHTML = "";
+
+    const xpTx = transactions.filter(tx => tx.type === "xp");
+    const grouped = {};
+
+    for (const tx of xpTx) {
+        const date = new Date(tx.createdAt).toLocaleDateString("en-GB");
+        grouped[date] = (grouped[date] || 0) + tx.amount;
+    }
+
+    const sortedDates = Object.keys(grouped).sort((a, b) => new Date(a) - new Date(b));
+    const data = sortedDates.map(date => ({ date, amount: grouped[date] }));
+
+    const width = 1000;
+    const height = 500;
+    const padding = 60;
+    const maxXP = Math.max(...data.map(d => d.amount));
+    const xStep = (width - padding * 2) / (data.length - 1);
+    const yScale = (height - padding * 2) / maxXP;
+
+    const axisColor = "#666";
+    const gridLines = 5;
+
+    for (let i = 0; i <= gridLines; i++) {
+        const y = padding + i * ((height - padding * 2) / gridLines);
+        const yValue = maxXP - (i * maxXP / gridLines);
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", padding);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", width - padding);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", axisColor);
+        line.setAttribute("stroke-dasharray", "2 2");
+        svg.appendChild(line);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", 10);
+        label.setAttribute("y", y + 4);
+        label.setAttribute("fill", "#ccc");
+        label.setAttribute("font-size", "10");
+        label.textContent = `${(yValue / 1024).toFixed(1)} kB`;
+        svg.appendChild(label);
+    }
+
+    const points = data.map((d, i) => {
+        const x = padding + i * xStep;
+        const y = height - padding - d.amount * yScale;
+        return { x, y, label: d.date, value: d.amount };
+    });
+
+    const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(" ");
+    const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathEl.setAttribute("d", path);
+    pathEl.setAttribute("stroke", "#a855f7");
+    pathEl.setAttribute("fill", "none");
+    pathEl.setAttribute("stroke-width", "2");
+    svg.appendChild(pathEl);
+
+    points.forEach((p, i) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", p.x);
+        circle.setAttribute("cy", p.y);
+        circle.setAttribute("r", 3);
+        circle.setAttribute("fill", "#a855f7");
+        svg.appendChild(circle);
+
+        if (i % Math.ceil(points.length / 10) === 0) {
+            const dateLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            dateLabel.setAttribute("x", p.x);
+            dateLabel.setAttribute("y", height - 10);
+            dateLabel.setAttribute("text-anchor", "middle");
+            dateLabel.setAttribute("fill", "#ccc");
+            dateLabel.setAttribute("font-size", "10");
+            dateLabel.textContent = p.label;
+            svg.appendChild(dateLabel);
+        }
+
+        if (i % 2 === 0 || p.value > maxXP * 0.5) {
+            const valueLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            valueLabel.setAttribute("x", p.x);
+            valueLabel.setAttribute("y", p.y - 8);
+            valueLabel.setAttribute("text-anchor", "middle");
+            valueLabel.setAttribute("fill", "#fff");
+            valueLabel.setAttribute("font-size", "11");
+            valueLabel.textContent = `${(p.value / 1024).toFixed(1)} kB`;
+            svg.appendChild(valueLabel);
+        }
+    });
+
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+}

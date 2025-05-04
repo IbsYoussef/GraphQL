@@ -1,4 +1,4 @@
-import { getTopSkills, titleCase, renderSkillChart, debugSkillData } from "./utils.js";
+import { getTopSkills, titleCase, renderSkillChart, debugSkillData, renderXPChart } from "./utils.js";
 
 const GRAPHQL_ENDPOINT = "https://learn.01founders.co/api/graphql-engine/v1/graphql";
 
@@ -171,6 +171,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 📈 Render Skill Chart
     const topSkills = getTopSkills(transactions);
     renderSkillChart(topSkills, "skills-chart");
+
+    // Render XP growth chart
+    renderXPChart(transactions, "xp-chart");
 
 });
 

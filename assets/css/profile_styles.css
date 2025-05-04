@@ -167,3 +167,39 @@ h2 {
     fill: #8a2be2;
     transition: height 0.3s ease, y 0.3s ease;
 }
+
+#xp-chart-section {
+    margin-top: 40px;
+    text-align: center;
+    background-color: #2b2b2b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#xp-chart {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+}
+
+#xp-chart path {
+    stroke: #8a2be2;
+    stroke-width: 2;
+    fill: none;
+}
+
+#xp-chart circle {
+    fill: #8a2be2;
+}
+
+#xp-chart text {
+    fill: #f5f5f5;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
