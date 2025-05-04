@@ -1,4 +1,4 @@
-import { getTopSkills, titleCase, renderSkillChart } from "./utils.js";
+import { getTopSkills, titleCase, renderSkillChart, debugSkillData } from "./utils.js";
 
 const GRAPHQL_ENDPOINT = "https://learn.01founders.co/api/graphql-engine/v1/graphql";
 
@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const transactions = await fetchTransactions();
+    window.debugSkillData = debugSkillData;
     const auditData = await calculateAuditRatio();
 
     if (auditData) {

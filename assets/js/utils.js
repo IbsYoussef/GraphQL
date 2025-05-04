@@ -98,3 +98,22 @@ export function renderSkillChart(skills) {
     const totalWidth = padding * 2 + skills.length * (barWidth + barSpacing);
     svg.setAttribute("viewBox", `0 0 ${totalWidth} ${chartHeight + padding * 2}`);
 }
+
+// Debug helper: Logs grouped skill XP totals in kilobytes
+export function debugSkillData(transactions) {
+    const skillTx = transactions.filter(tx => tx.type.startsWith("skill_"));
+    const grouped = {};
+
+    for (const tx of skillTx) {
+        const skill = tx.type.replace("skill_", "");
+        grouped[skill] = (grouped[skill] || 0) + tx.amount;
+
+        const summary = Object.entries(grouped).map(([skill, amt]) => ({
+            skill,
+            amount: `${(amt / 1024).toFixed(1)} kB`
+        }));
+
+        console.table(summary);
+        return summary;
+    }
+}
