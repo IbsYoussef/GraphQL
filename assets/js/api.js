@@ -128,6 +128,47 @@ async function calculateAuditRatio() {
     return { auditRatio, doneFormatted, receivedFormatted };
 }
 
+// Query Audit info as Object
+export async function fetchAuditByObjectId(objectId) {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+        console.error("No JWT found.");
+        return null;
+    }
+
+    const query = `
+        query GetAuditById($id: uuid!) {
+            transaction(where: {objectId: {_eq: $id}, type: {_eq: "down"}}) {
+                id
+                amount
+                createdAt
+                path
+            }
+        }
+    `;
+
+    const variables = {
+        id: objectId
+    };
+
+    try {
+        const response = await fetch(GRAPHQL_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ query, variables })
+        });
+
+        const result = await response.json();
+        return result.data.transaction;
+    } catch (err) {
+        console.error("Error in fetchAuditByObjectId:", err);
+        return null;
+    }
+}
+
 // Load user info when profile.html is loaded
 document.addEventListener("DOMContentLoaded", async () => {
     const user = await fetchUserData();
