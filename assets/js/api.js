@@ -1,4 +1,4 @@
-import { getTopSkills, titleCase, renderSkillChart, debugSkillData, renderXPChart } from "./utils.js";
+import { getTopSkills, titleCase, renderSkillChart, debugSkillData, renderXPChart, formatSize } from "./utils.js";
 
 const GRAPHQL_ENDPOINT = "https://learn.01founders.co/api/graphql-engine/v1/graphql";
 
@@ -126,16 +126,6 @@ async function calculateAuditRatio() {
     // console.log(`Best ratio ever!`);
 
     return { auditRatio, doneFormatted, receivedFormatted };
-}
-
-// Convert XP amount to MB/KB and return formatted string
-function formatSize(amount) {
-    const mb = amount / (1024 * 1024);
-    if (mb >= 1) {
-        return `${(Math.round((mb + Number.EPSILON) * 10) / 10).toFixed(1)} MB`; // ✅ Fix floating-point rounding
-    }
-    const kb = amount / 1024;
-    return `${kb.toFixed(0)} kB`; // ✅ Convert to KB if < 1MB
 }
 
 // Load user info when profile.html is loaded
