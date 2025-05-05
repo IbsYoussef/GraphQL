@@ -137,13 +137,18 @@ export function renderXPChart(transactions, svgId) {
     const xpTx = transactions.filter(tx => tx.type === "xp");
     const grouped = {};
 
+    // Keep raw date string for proper sorting (yyyy-mm-dd)
     for (const tx of xpTx) {
-        const date = new Date(tx.createdAt).toLocaleDateString("en-GB");
-        grouped[date] = (grouped[date] || 0) + tx.amount;
+        const rawDate = new Date(tx.createdAt).toISOString().split("T")[0];
+        grouped[rawDate] = (grouped[rawDate] || 0) + tx.amount;
     }
 
     const sortedDates = Object.keys(grouped).sort((a, b) => new Date(a) - new Date(b));
-    const data = sortedDates.map(date => ({ date, amount: grouped[date] }));
+    const data = sortedDates.map(date => ({
+        date: new Date(date),
+        label: new Date(date).toLocaleDateString("en-GB"),
+        amount: grouped[date],
+    }));
 
     const width = 1000;
     const height = 500;
@@ -180,10 +185,10 @@ export function renderXPChart(transactions, svgId) {
     const points = data.map((d, i) => {
         const x = padding + i * xStep;
         const y = height - padding - d.amount * yScale;
-        return { x, y, label: d.date, value: d.amount };
+        return { x, y, label: d.label, value: d.amount };
     });
 
-    const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(" ");
+    const path = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
     const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
     pathEl.setAttribute("d", path);
     pathEl.setAttribute("stroke", "#a855f7");
