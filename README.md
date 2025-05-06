@@ -5,7 +5,7 @@
 - [📌 Project Description](#-project-description)
 - [🚀 Prerequisites & Usage](#-prerequisites--usage)
 - [📁 File/Folder Structure](#-filefolder-structure)
-- [🗃️ Directory Responsibilities & Modular Design](#-directory-responsibilities--modular-design)
+- [🗃️ Directory Responsibilities & Modular Design](#️-directory-responsibilities--modular-design)
 - [✨ Key Features](#-key-features)
 - [📸 UI Visuals](#-ui-visuals)
 - [🔧 Areas of Developer Growth](#-areas-of-developer-growth)
