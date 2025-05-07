@@ -1,8 +1,6 @@
 # GraphQL
 
 ## 📃 Table of Contents
-
-- [GraphQL](#graphql)
   - [Project Description](#project-description)
   - [Prerequisites \& Usage](#prerequisites--usage)
     - [🔧 Prerequisites](#-prerequisites)
