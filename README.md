@@ -3,18 +3,15 @@
 ## 📃 Table of Contents
 
 - [GraphQL](#graphql)
-  - [📃 Table of Contents](#-table-of-contents)
   - [Project Description](#project-description)
-    - [🧰 Tech Stack](#-tech-stack)
   - [Prerequisites \& Usage](#prerequisites--usage)
     - [🔧 Prerequisites](#-prerequisites)
     - [💻 Running the Project Locally](#-running-the-project-locally)
     - [🌐 Hosted Version](#-hosted-version)
+
   - [📁 File/Folder Structure](#-filefolder-structure)
   - [🗃️ Directory Responsibilities \& Modular Design](#️-directory-responsibilities--modular-design)
-    - [`assets/`](#assets)
-    - [`docs/`](#docs)
-    - [`pages/`](#pages)
+
   - [Key Features](#key-features)
   - [📸 UI Visuals](#-ui-visuals)
     - [🔐 Login Page](#-login-page)
