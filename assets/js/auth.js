@@ -20,7 +20,7 @@ async function login(username, password) {
 
         const token = await response.json(); // JWT received from the server
         localStorage.setItem('jwt', token);
-        window.location.assign('profile.html');
+        window.location.assign('/pages/profile.html');
     } catch (error) {
         alert(error.message); // Display error message
     }
