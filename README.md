@@ -80,7 +80,7 @@ To view or run this project locally, ensure you have the following:
 
 ### 🌐 Hosted Version
 
-> [🔗 graphql-01f.netlify.app]
+> [🔗 View the Live Application](https://graphql-01f.netlify.app)
 
 If you're a student of the **01 Founders coding program**, you can also access the live version of this application via the link above.  
 Simply log in using your platform credentials to view your personal **audit ratio**, **skill growth**, and **XP progression**.
