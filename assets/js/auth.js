@@ -39,7 +39,7 @@ function checkAuth() {
 function logout() {
     console.log("Logging out...");
     localStorage.removeItem('jwt'); // Remove JWT
-    window.location.assign("../pages/index.html"); // Redirect to login page
+    window.location.assign("/pages/index.html"); // Redirect to login page
 }
 
 window.logout = logout;
