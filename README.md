@@ -58,7 +58,7 @@ To view or run this project locally, ensure you have the following:
 ### 💻 Running the Project Locally
 1. **Clone the repository** 
     ```bash
-    git clone https://learn.01founders.co/git/iyoussef/GraphQL.git
+    git clone https://github.com/IbsYoussef/GraphQL.git
     cd GraphQL
     ```
 
